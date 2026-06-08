@@ -60,6 +60,16 @@ func reproducir_musica(stream: AudioStream, _vol_db_ignorado: float = 0.0) -> vo
 func detener_musica() -> void:
 	_musica.stop()
 
+func fade_out_musica(duracion: float = 0.5) -> void:
+	if not _musica.playing:
+		return
+	var vol_original := _musica.volume_db
+	var tw := create_tween()
+	tw.tween_property(_musica, "volume_db", -80.0, duracion)
+	await tw.finished
+	_musica.stop()
+	_musica.volume_db = vol_original
+
 func efecto(stream: AudioStream) -> void:
 	_sfx.stream = stream
 	_sfx.volume_db = linear_to_db(maxf(vol_efectos, 0.0001))

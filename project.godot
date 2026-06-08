@@ -22,6 +22,7 @@ Audio="*res://scripts/audio.gd"
 
 [display]
 
+window/size/viewport_width=1280
 window/stretch/mode="canvas_items"
 
 [input]

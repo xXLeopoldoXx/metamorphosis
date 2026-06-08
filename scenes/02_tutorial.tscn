@@ -7,12 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://c3c16n1esmsr0" path="res://assets/sprites/props/hoja_2.png" id="6_hoja2"]
 [ext_resource type="Texture2D" uid="uid://bn033b0vhgtiv" path="res://assets/sprites/props/hoja_3.png" id="7_hoja3"]
 [ext_resource type="Shader" uid="uid://cnsakg3bg6vx6" path="res://shaders/hoja_sway.gdshader" id="8_sway"]
-[ext_resource type="Shader" uid="uid://6asivg8oxi6s" path="res://shaders/viento_bg.gdshader" id="9_viento"]
 [ext_resource type="Shader" uid="uid://bo2g2mrcqlh03" path="res://shaders/rayos_sol.gdshader" id="10_rayos"]
 [ext_resource type="Shader" uid="uid://4wwxh0fb2r21" path="res://shaders/vinheta.gdshader" id="11_vinheta"]
 [ext_resource type="Texture2D" uid="uid://7ykvo6tdk6iu" path="res://assets/sprites/props/mota.png" id="12_mota"]
-[ext_resource type="Texture2D" path="res://assets/sprites/props/planta.png" id="13_planta"]
-[ext_resource type="Shader" path="res://shaders/follaje_sway.gdshader" id="14_follaje"]
+[ext_resource type="Texture2D" uid="uid://c1qyugr4d3yle" path="res://assets/sprites/props/planta.png" id="13_planta"]
+[ext_resource type="Shader" uid="uid://cgfihrbbsjxg5" path="res://shaders/follaje_sway.gdshader" id="14_follaje"]
 
 [sub_resource type="ShaderMaterial" id="Mat_follaje_A"]
 shader = ExtResource("14_follaje")
@@ -31,13 +30,6 @@ shader = ExtResource("14_follaje")
 shader_parameter/amplitud = 0.08
 shader_parameter/velocidad = 1.1
 shader_parameter/fase = 3.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMat_viento_bg"]
-shader = ExtResource("9_viento")
-shader_parameter/velocidad_viento = 1.0
-shader_parameter/fuerza_viento = 0.014
-shader_parameter/linea_suelo = 0.78
-shader_parameter/pulso_luz = 0.05
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suelo"]
 size = Vector2(4973, 400)
@@ -102,9 +94,6 @@ scale_min = 0.07
 scale_max = 0.15
 color = Color(0.92, 0.98, 0.88, 0.85)
 
-[sub_resource type="CanvasItemMaterial" id="CIM_add"]
-blend_mode = 1
-
 [sub_resource type="ParticleProcessMaterial" id="PM_motas"]
 emission_shape = 3
 emission_box_extents = Vector3(2600, 700, 1)
@@ -125,8 +114,8 @@ turbulence_noise_scale = 1.5
 [sub_resource type="ShaderMaterial" id="Mat_rayos"]
 shader = ExtResource("10_rayos")
 shader_parameter/intensidad = 0.32
-shader_parameter/velocidad = 0.06
 shader_parameter/color_luz = Color(1, 0.96, 0.78, 1)
+shader_parameter/offset_mundo = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="Mat_vinheta"]
 shader = ExtResource("11_vinheta")
@@ -146,49 +135,49 @@ scale = Vector2(7.6296864, 5)
 texture = ExtResource("3_bg1")
 centered = false
 
-[node name="Follaje" type="Node2D" parent="."]
+[node name="Follaje" type="Node2D" parent="." unique_id=2060582987]
 z_index = -5
 
-[node name="Planta1" type="Sprite2D" parent="Follaje"]
+[node name="Planta1" type="Sprite2D" parent="Follaje" unique_id=1935861710]
 material = SubResource("Mat_follaje_A")
 position = Vector2(250, 1549)
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("13_planta")
 
-[node name="Planta2" type="Sprite2D" parent="Follaje"]
+[node name="Planta2" type="Sprite2D" parent="Follaje" unique_id=495912455]
 material = SubResource("Mat_follaje_B")
 position = Vector2(950, 1479)
 scale = Vector2(2.2, 2.2)
 texture = ExtResource("13_planta")
 flip_h = true
 
-[node name="Planta3" type="Sprite2D" parent="Follaje"]
+[node name="Planta3" type="Sprite2D" parent="Follaje" unique_id=536396408]
 material = SubResource("Mat_follaje_C")
 position = Vector2(1700, 1584)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("13_planta")
 
-[node name="Planta4" type="Sprite2D" parent="Follaje"]
+[node name="Planta4" type="Sprite2D" parent="Follaje" unique_id=457911341]
 material = SubResource("Mat_follaje_A")
 position = Vector2(2400, 1444)
 scale = Vector2(2.4, 2.4)
 texture = ExtResource("13_planta")
 flip_h = true
 
-[node name="Planta5" type="Sprite2D" parent="Follaje"]
+[node name="Planta5" type="Sprite2D" parent="Follaje" unique_id=1222428556]
 material = SubResource("Mat_follaje_B")
 position = Vector2(3100, 1514)
 scale = Vector2(2, 2)
 texture = ExtResource("13_planta")
 
-[node name="Planta6" type="Sprite2D" parent="Follaje"]
+[node name="Planta6" type="Sprite2D" parent="Follaje" unique_id=609630198]
 material = SubResource("Mat_follaje_C")
 position = Vector2(3900, 1566)
 scale = Vector2(1.7, 1.7)
 texture = ExtResource("13_planta")
 flip_h = true
 
-[node name="Planta7" type="Sprite2D" parent="Follaje"]
+[node name="Planta7" type="Sprite2D" parent="Follaje" unique_id=2106504403]
 material = SubResource("Mat_follaje_A")
 position = Vector2(4500, 1490)
 scale = Vector2(2.1, 2.1)
@@ -217,7 +206,7 @@ position = Vector2(450, 1434)
 scale = Vector2(1.3, 1.3)
 
 [node name="HojasCayendo" type="Node2D" parent="." unique_id=513246231]
-position = Vector2(2400, 500)
+position = Vector2(2400, 40)
 
 [node name="HojasA" type="GPUParticles2D" parent="HojasCayendo" unique_id=639948846]
 material = SubResource("ShaderMat_sway_A")
@@ -269,6 +258,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.29869, 1.0448864)
 mouse_filter = 2
 
 [node name="Vinheta" type="CanvasLayer" parent="." unique_id=771221907]
@@ -280,6 +270,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(3.8000002, 3.6799994)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="Meta" type="Area2D" parent="." unique_id=1804179562]

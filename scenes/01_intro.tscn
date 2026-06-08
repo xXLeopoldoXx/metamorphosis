@@ -1,5 +1,28 @@
 [gd_scene format=3 uid="uid://bintro001"]
 
-; Escena 1 - Intro. Vacía a propósito: aquí va el video de introducción.
+[ext_resource type="VideoStream" uid="uid://bnrg10biwvyrn" path="res://assets/video/intro.ogv" id="1_7q2q1"]
+[ext_resource type="Script" uid="uid://c73kd8pxiuib8" path="res://scripts/intro.gd" id="2_intro"]
 
-[node name="Intro" type="Node2D"]
+[node name="Intro" type="Node2D" unique_id=1067684348]
+script = ExtResource("2_intro")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=245035768]
+offset_top = -27.0
+offset_right = 1280.0
+offset_bottom = 693.0
+stream = ExtResource("1_7q2q1")
+autoplay = true
+
+[node name="SkipLabel" type="Label" parent="." unique_id=312048921]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1045.0
+offset_top = 610.0
+offset_right = 1309.0
+offset_bottom = 642.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Presiona Espacio para Saltar"

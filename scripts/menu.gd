@@ -20,6 +20,7 @@ func _ready() -> void:
 	check_pantalla.button_pressed = Audio.pantalla_completa
 
 func _on_jugar_pressed() -> void:
+	Audio.fade_out_musica(Transition.DURACION)
 	Transition.change_scene("res://scenes/01_intro.tscn")
 
 func _on_ajustes_pressed() -> void:
