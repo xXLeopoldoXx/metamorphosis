@@ -11,8 +11,6 @@ const BG_RIGHT: int = 4884    # 640 * 7.6296864 ≈ 4884 (ancho del bg estirado)
 const BG_TOP: int = 0
 const BG_BOTTOM: int = 2400   # 480 * 5
 
-@onready var _mat_rayos: ShaderMaterial = $Rayos/Luz.material
-
 func _ready() -> void:
 	Audio.reproducir_musica(Audio.AMB_ORUGA)
 
@@ -22,12 +20,6 @@ func _ready() -> void:
 		cam.limit_right = BG_RIGHT
 		cam.limit_top = BG_TOP
 		cam.limit_bottom = BG_BOTTOM
-
-func _process(_delta: float) -> void:
-	var cam := $Player/Camera2D as Camera2D
-	if cam and _mat_rayos:
-		var vp := get_viewport_rect().size
-		_mat_rayos.set_shader_parameter("offset_mundo", cam.global_position / vp)
 
 func _on_meta_body_entered(body: Node2D) -> void:
 	if body.name == "Player":

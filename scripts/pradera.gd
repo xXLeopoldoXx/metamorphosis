@@ -19,13 +19,6 @@ var inicio: Vector2 = Vector2.ZERO
 @onready var player: CharacterBody2D = $Player
 @onready var contador: Label = $UI/Contador
 @onready var pista: Label = $UI/Pista
-@onready var _mat_rayos: ShaderMaterial = $Rayos/Luz.material
-
-func _process(_delta: float) -> void:
-	var cam := $Player/Camera2D as Camera2D
-	if cam and _mat_rayos:
-		var vp := get_viewport_rect().size
-		_mat_rayos.set_shader_parameter("offset_mundo", cam.global_position / vp)
 
 func _ready() -> void:
 	Audio.reproducir_musica(Audio.AMB_ORUGA)
