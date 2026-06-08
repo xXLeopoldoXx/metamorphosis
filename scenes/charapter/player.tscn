@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dviv7mvvn4qil"]
+
+[ext_resource type="Texture2D" uid="uid://ck8j0eixeiarc" path="res://assets/sprites/player/walk.png" id="1_5k5gp"]
+[ext_resource type="Script" uid="uid://ckrtobgetcdyx" path="res://scripts/player_movement.gd" id="2_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x53y"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(0, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a40q5"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(640, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4i3k2"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(1280, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdcr0"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(1920, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cos2w"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(2560, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q3mn"]
+atlas = ExtResource("1_5k5gp")
+region = Rect2(3200, 0, 640, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oo4u3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5x53y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a40q5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4i3k2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdcr0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cos2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q3mn")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=566830276]
+script = ExtResource("2_script")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=770626315]
+position = Vector2(7.000001, 290)
+scale = Vector2(38.63439, -2436.691)
+polygon = PackedVector2Array(-5.6426406, 0.00082078576, -4.5296426, -0.0016415715, -3.080157, -0.0020519644, -1.1647654, -0.0028727502, 0.38825506, -0.0020519644, 2.2518795, -0.0016415715, 4.244922, -0.0045143142, 4.736712, 0.009028636, 5.513222, 0.003283143, 6.2120814, 0.0045143217, 6.496802, 0.010259815, 6.62622, 0.018467672, 6.5226855, 0.032421015, 6.2120814, 0.042680837, 5.513222, 0.051709473, 4.814363, 0.052119866, 4.426108, 0.046374366, 3.4684122, 0.045143187, 2.6401346, 0.04719515, 1.7083224, 0.04719515, -0.23295309, 0.047605544, -1.2424163, 0.047605544, -2.2518795, 0.04309123, -3.1836917, 0.045963973, -4.141388, 0.036935337, -5.124967, 0.029958665, -5.539106, 0.018467672, -6.2120814, 0.009439029, -6.1861978, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1551909772]
+sprite_frames = SubResource("SpriteFrames_oo4u3")
+animation = &"walk"
+frame_progress = 0.3955402
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=345678901]
+position = Vector2(184, -55)
+zoom = Vector2(0.55, 0.55)
