@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bvuelo06"]
+
+[ext_resource type="Script" path="res://scripts/vuelo.gd" id="1"]
+
+[node name="Vuelo" type="Node2D"]
+script = ExtResource("1")

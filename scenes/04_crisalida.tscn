@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bcrisalida04"]
+
+[ext_resource type="Script" path="res://scripts/crisalida_scene.gd" id="1"]
+
+[node name="Crisalida" type="Node2D"]
+script = ExtResource("1")
