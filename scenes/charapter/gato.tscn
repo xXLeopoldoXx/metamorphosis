@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgato03tscn"]
+
+[ext_resource type="Script" uid="uid://cgato03gd" path="res://scripts/gato.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/gato/gato_1.png" id="2_g1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/gato/gato_2.png" id="3_g2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/gato/gato_3.png" id="4_g3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gato"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g3")
+}],
+"loop": false,
+"name": &"asomar",
+"speed": 6.0
+}]
+
+[node name="Gato" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Cono" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 0.301961, 0.211765, 0.235294)
+polygon = PackedVector2Array(0, 20, -150, 150, 150, 150)
+
+[node name="Cara" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_gato")
+animation = &"asomar"
+frame = 2

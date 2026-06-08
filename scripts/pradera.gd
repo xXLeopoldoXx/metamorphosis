@@ -1,7 +1,14 @@
 extends Node2D
 
-# Escena 03 - Pradera. La oruga come hojas y se esconde del gato entre los arbustos.
+# Escena 03 - Pradera. La oruga come hojas y se esconde de los gatos que asoman
+# entre los arbustos. Si un gato la ve (en su cono y sin esconder) -> Game Over.
 # Cuando se come todas las hojas se abre la salida hacia la crisálida (04).
+
+# Bordes del fondo en coordenadas de mundo (mismo scale que el Sprite del fondo).
+const BG_LEFT: int = 0
+const BG_RIGHT: int = 4884
+const BG_TOP: int = 0
+const BG_BOTTOM: int = 2400
 
 @export var hojas_totales: int = 5
 
@@ -10,19 +17,21 @@ var escondites: int = 0          # en cuántos arbustos está metida la oruga ah
 var inicio: Vector2 = Vector2.ZERO
 
 @onready var player: CharacterBody2D = $Player
-@onready var gato: Node2D = $Gato
 @onready var contador: Label = $UI/Contador
 @onready var pista: Label = $UI/Pista
 
 func _ready() -> void:
+	Audio.reproducir_musica(Audio.AMB_ORUGA)
 	inicio = player.position
 	_actualizar_contador()
 
-func _process(_delta: float) -> void:
-	# El gato atrapa a la oruga si está cerca (en horizontal) y NO está escondida.
-	var distancia_x: float = abs(player.global_position.x - gato.global_position.x)
-	if escondites <= 0 and distancia_x < 220.0:
-		_atrapada()
+	# Límites de la cámara (vive dentro del Player) para no ver fuera del fondo.
+	var cam: Camera2D = $Player/Camera2D
+	if cam:
+		cam.limit_left = BG_LEFT
+		cam.limit_right = BG_RIGHT
+		cam.limit_top = BG_TOP
+		cam.limit_bottom = BG_BOTTOM
 
 func comer_hoja() -> void:
 	hojas_comidas += 1
@@ -39,14 +48,16 @@ func salir_escondite(_cuerpo: Node) -> void:
 	if escondites == 0:
 		player.modulate = Color(1, 1, 1, 1)
 
-func _atrapada() -> void:
-	# Susto: la oruga vuelve al inicio.
-	player.position = inicio
-	player.velocity = Vector2.ZERO
+func esta_escondido() -> bool:
+	return escondites > 0
+
+# Lo llaman los gatos (señal "jugador_visto") cuando te ven al descubierto.
+func _on_gato_visto() -> void:
+	Transition.game_over()
 
 func _on_meta_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and hojas_comidas >= hojas_totales:
-		get_tree().change_scene_to_file("res://scenes/04_crisalida.tscn")
+		Transition.change_scene("res://scenes/04_crisalida.tscn")
 
 func _actualizar_contador() -> void:
 	if contador:

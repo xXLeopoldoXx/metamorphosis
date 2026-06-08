@@ -1,71 +1,101 @@
-[gd_scene format=3 uid="uid://dviv7mvvn4qil"]
+[gd_scene load_steps=18 format=3 uid="uid://dviv7mvvn4qil"]
 
-[ext_resource type="Texture2D" uid="uid://ck8j0eixeiarc" path="res://assets/sprites/player/walk.png" id="1_5k5gp"]
-[ext_resource type="Script" uid="uid://ckrtobgetcdyx" path="res://scripts/player_movement.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://ckrtobgetcdyx" path="res://scripts/player_movement.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_1.png" id="2_c1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_2.png" id="3_c2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_3.png" id="4_c3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_4.png" id="5_c4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_5.png" id="6_c5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_caminar/caminar_6.png" id="7_c6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_1.png" id="8_s1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_2.png" id="9_s2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_3.png" id="10_s3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_4.png" id="11_s4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_5.png" id="12_s5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_6.png" id="13_s6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/oruga_subir/subir_7.png" id="14_s7"]
+[ext_resource type="AudioStream" path="res://assets/musicas_sonidos/sfx_movimiento.mp3" id="15_pasos"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5x53y"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(0, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a40q5"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(640, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4i3k2"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(1280, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wdcr0"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(1920, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cos2w"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(2560, 0, 640, 640)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4q3mn"]
-atlas = ExtResource("1_5k5gp")
-region = Rect2(3200, 0, 640, 640)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_oo4u3"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_oruga"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5x53y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a40q5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4i3k2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdcr0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cos2w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4q3mn")
+"texture": ExtResource("2_c1")
 }],
 "loop": true,
-"name": &"walk",
-"speed": 7.0
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_c6")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_s1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_s5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_s6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_s7")
+}],
+"loop": true,
+"name": &"subir",
+"speed": 8.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=566830276]
-script = ExtResource("2_script")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+size = Vector2(480, 180)
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=770626315]
-position = Vector2(7.000001, 290)
-scale = Vector2(38.63439, -2436.691)
-polygon = PackedVector2Array(-5.6426406, 0.00082078576, -4.5296426, -0.0016415715, -3.080157, -0.0020519644, -1.1647654, -0.0028727502, 0.38825506, -0.0020519644, 2.2518795, -0.0016415715, 4.244922, -0.0045143142, 4.736712, 0.009028636, 5.513222, 0.003283143, 6.2120814, 0.0045143217, 6.496802, 0.010259815, 6.62622, 0.018467672, 6.5226855, 0.032421015, 6.2120814, 0.042680837, 5.513222, 0.051709473, 4.814363, 0.052119866, 4.426108, 0.046374366, 3.4684122, 0.045143187, 2.6401346, 0.04719515, 1.7083224, 0.04719515, -0.23295309, 0.047605544, -1.2424163, 0.047605544, -2.2518795, 0.04309123, -3.1836917, 0.045963973, -4.141388, 0.036935337, -5.124967, 0.029958665, -5.539106, 0.018467672, -6.2120814, 0.009439029, -6.1861978, 0)
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_script")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1551909772]
-sprite_frames = SubResource("SpriteFrames_oo4u3")
-animation = &"walk"
-frame_progress = 0.3955402
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 210)
+shape = SubResource("RectangleShape2D_player")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=345678901]
-position = Vector2(184, -55)
-zoom = Vector2(0.55, 0.55)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oruga")
+animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -220)
+zoom = Vector2(0.3, 0.3)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Pasos" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_pasos")
+volume_db = -6.0

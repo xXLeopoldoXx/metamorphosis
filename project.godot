@@ -15,6 +15,18 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 config/main_scene="res://scenes/world.tscn"
 
+[autoload]
+
+Transition="*res://scripts/transition.gd"
+Audio="*res://scripts/audio.gd"
+
+[display]
+
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
 [input]
 
 ui_left={
