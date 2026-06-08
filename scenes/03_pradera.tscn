@@ -1,6 +1,255 @@
-[gd_scene format=3 uid="uid://bpradera03"]
+[gd_scene load_steps=10 format=3 uid="uid://bpradera03"]
 
-[ext_resource type="Script" path="res://scripts/pradera.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dviv7mvvn4qil" path="res://scenes/charapter/player.tscn" id="1_player"]
+[ext_resource type="Script" uid="uid://cpradera03gd" path="res://scripts/pradera.gd" id="2_pradera"]
+[ext_resource type="Script" uid="uid://cgato03gd" path="res://scripts/gato.gd" id="3_gato"]
+[ext_resource type="Script" uid="uid://choja03gd" path="res://scripts/hoja.gd" id="4_hoja"]
+[ext_resource type="Script" uid="uid://carbusto03gd" path="res://scripts/arbusto.gd" id="5_arbusto"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suelo"]
+size = Vector2(6000, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared"]
+size = Vector2(60, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_meta"]
+size = Vector2(200, 800)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hoja"]
+radius = 55.0
 
 [node name="Pradera" type="Node2D"]
-script = ExtResource("1")
+script = ExtResource("2_pradera")
+
+[node name="Fondo" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Cielo" type="ColorRect" parent="Fondo"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.611765, 0.835294, 0.929412, 1)
+
+[node name="Sol" type="Polygon2D" parent="Fondo"]
+color = Color(1, 0.913725, 0.392157, 1)
+polygon = PackedVector2Array(990, 120, 969, 169, 920, 190, 871, 169, 850, 120, 871, 71, 920, 50, 969, 71)
+
+[node name="Nube1" type="Polygon2D" parent="Fondo"]
+position = Vector2(360, 150)
+color = Color(1, 1, 1, 0.9)
+polygon = PackedVector2Array(-110, 0, -80, -28, -30, -36, 10, -22, 60, -32, 95, -12, 80, 18, 10, 28, -60, 26, -100, 20)
+
+[node name="Nube2" type="Polygon2D" parent="Fondo"]
+position = Vector2(1250, 120)
+scale = Vector2(0.85, 0.85)
+color = Color(1, 1, 1, 0.85)
+polygon = PackedVector2Array(-110, 0, -80, -28, -30, -36, 10, -22, 60, -32, 95, -12, 80, 18, 10, 28, -60, 26, -100, 20)
+
+[node name="Suelo" type="StaticBody2D" parent="."]
+
+[node name="Tierra" type="Polygon2D" parent="Suelo"]
+color = Color(0.380392, 0.27451, 0.156863, 1)
+polygon = PackedVector2Array(-400, 420, 4400, 420, 4400, 1000, -400, 1000)
+
+[node name="Pasto" type="Polygon2D" parent="Suelo"]
+color = Color(0.317647, 0.560784, 0.231373, 1)
+polygon = PackedVector2Array(-400, 320, 4400, 320, 4400, 440, -400, 440)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo"]
+position = Vector2(2000, 520)
+shape = SubResource("RectangleShape2D_suelo")
+
+[node name="ParedIzquierda" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedIzquierda"]
+position = Vector2(-460, -400)
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="ParedDerecha" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedDerecha"]
+position = Vector2(4400, -400)
+shape = SubResource("RectangleShape2D_pared")
+
+[node name="Arbustos" type="Node2D" parent="."]
+
+[node name="Arbusto1" type="Area2D" parent="Arbustos"]
+position = Vector2(800, 320)
+script = ExtResource("5_arbusto")
+
+[node name="Forma" type="Polygon2D" parent="Arbustos/Arbusto1"]
+color = Color(0.180392, 0.4, 0.156863, 1)
+polygon = PackedVector2Array(-240, 0, -230, -160, -150, -290, -40, -360, 80, -360, 190, -290, 250, -160, 250, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arbustos/Arbusto1"]
+polygon = PackedVector2Array(-220, 0, -210, -160, -120, -300, 60, -340, 180, -280, 230, -150, 230, 0)
+
+[node name="Arbusto2" type="Area2D" parent="Arbustos"]
+position = Vector2(2000, 320)
+scale = Vector2(1.15, 1.1)
+script = ExtResource("5_arbusto")
+
+[node name="Forma" type="Polygon2D" parent="Arbustos/Arbusto2"]
+color = Color(0.2, 0.435294, 0.176471, 1)
+polygon = PackedVector2Array(-240, 0, -230, -160, -150, -290, -40, -360, 80, -360, 190, -290, 250, -160, 250, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arbustos/Arbusto2"]
+polygon = PackedVector2Array(-220, 0, -210, -160, -120, -300, 60, -340, 180, -280, 230, -150, 230, 0)
+
+[node name="Arbusto3" type="Area2D" parent="Arbustos"]
+position = Vector2(3200, 320)
+script = ExtResource("5_arbusto")
+
+[node name="Forma" type="Polygon2D" parent="Arbustos/Arbusto3"]
+color = Color(0.180392, 0.4, 0.156863, 1)
+polygon = PackedVector2Array(-240, 0, -230, -160, -150, -290, -40, -360, 80, -360, 190, -290, 250, -160, 250, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arbustos/Arbusto3"]
+polygon = PackedVector2Array(-220, 0, -210, -160, -120, -300, 60, -340, 180, -280, 230, -150, 230, 0)
+
+[node name="Hojas" type="Node2D" parent="."]
+
+[node name="Hoja1" type="Area2D" parent="Hojas"]
+position = Vector2(400, 250)
+script = ExtResource("4_hoja")
+
+[node name="Forma" type="Polygon2D" parent="Hojas/Hoja1"]
+color = Color(0.443137, 0.745098, 0.282353, 1)
+polygon = PackedVector2Array(-50, 0, 0, -38, 50, 0, 0, 38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja1"]
+shape = SubResource("CircleShape2D_hoja")
+
+[node name="Hoja2" type="Area2D" parent="Hojas"]
+position = Vector2(1400, 250)
+script = ExtResource("4_hoja")
+
+[node name="Forma" type="Polygon2D" parent="Hojas/Hoja2"]
+color = Color(0.443137, 0.745098, 0.282353, 1)
+polygon = PackedVector2Array(-50, 0, 0, -38, 50, 0, 0, 38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja2"]
+shape = SubResource("CircleShape2D_hoja")
+
+[node name="Hoja3" type="Area2D" parent="Hojas"]
+position = Vector2(2600, 250)
+script = ExtResource("4_hoja")
+
+[node name="Forma" type="Polygon2D" parent="Hojas/Hoja3"]
+color = Color(0.443137, 0.745098, 0.282353, 1)
+polygon = PackedVector2Array(-50, 0, 0, -38, 50, 0, 0, 38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja3"]
+shape = SubResource("CircleShape2D_hoja")
+
+[node name="Hoja4" type="Area2D" parent="Hojas"]
+position = Vector2(3600, 250)
+script = ExtResource("4_hoja")
+
+[node name="Forma" type="Polygon2D" parent="Hojas/Hoja4"]
+color = Color(0.443137, 0.745098, 0.282353, 1)
+polygon = PackedVector2Array(-50, 0, 0, -38, 50, 0, 0, 38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja4"]
+shape = SubResource("CircleShape2D_hoja")
+
+[node name="Hoja5" type="Area2D" parent="Hojas"]
+position = Vector2(4050, 250)
+script = ExtResource("4_hoja")
+
+[node name="Forma" type="Polygon2D" parent="Hojas/Hoja5"]
+color = Color(0.443137, 0.745098, 0.282353, 1)
+polygon = PackedVector2Array(-50, 0, 0, -38, 50, 0, 0, 38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja5"]
+shape = SubResource("CircleShape2D_hoja")
+
+[node name="Gato" type="Node2D" parent="."]
+position = Vector2(2000, 320)
+script = ExtResource("3_gato")
+
+[node name="Cuerpo" type="Polygon2D" parent="Gato"]
+color = Color(0.45098, 0.45098, 0.501961, 1)
+polygon = PackedVector2Array(-110, -40, 90, -40, 90, -150, -110, -150)
+
+[node name="Cabeza" type="Polygon2D" parent="Gato"]
+color = Color(0.45098, 0.45098, 0.501961, 1)
+polygon = PackedVector2Array(60, -150, 180, -150, 180, -260, 60, -260)
+
+[node name="OrejaIzq" type="Polygon2D" parent="Gato"]
+color = Color(0.45098, 0.45098, 0.501961, 1)
+polygon = PackedVector2Array(60, -260, 100, -260, 75, -305)
+
+[node name="OrejaDer" type="Polygon2D" parent="Gato"]
+color = Color(0.45098, 0.45098, 0.501961, 1)
+polygon = PackedVector2Array(140, -260, 180, -260, 165, -305)
+
+[node name="Cola" type="Polygon2D" parent="Gato"]
+color = Color(0.45098, 0.45098, 0.501961, 1)
+polygon = PackedVector2Array(-110, -130, -180, -180, -165, -90)
+
+[node name="OjoIzq" type="Polygon2D" parent="Gato"]
+color = Color(0.117647, 0.117647, 0.14902, 1)
+polygon = PackedVector2Array(90, -220, 108, -220, 108, -195, 90, -195)
+
+[node name="OjoDer" type="Polygon2D" parent="Gato"]
+color = Color(0.117647, 0.117647, 0.14902, 1)
+polygon = PackedVector2Array(140, -220, 158, -220, 158, -195, 140, -195)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(0, 0)
+
+[node name="Meta" type="Area2D" parent="."]
+position = Vector2(4250, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meta"]
+position = Vector2(0, -100)
+shape = SubResource("RectangleShape2D_meta")
+
+[node name="Luz" type="Polygon2D" parent="Meta"]
+color = Color(1, 0.964706, 0.701961, 0.55)
+polygon = PackedVector2Array(-70, 320, 70, 320, 40, -360, -40, -360)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Contador" type="Label" parent="UI"]
+offset_left = 40.0
+offset_top = 30.0
+offset_right = 360.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.247059, 0.0941176, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 40
+text = "Hojas: 0 / 5"
+
+[node name="Pista" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -460.0
+offset_top = 36.0
+offset_right = 460.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.984314, 0.831373, 1)
+theme_override_colors/font_outline_color = Color(0.105882, 0.247059, 0.0941176, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "Come las hojas y escondete del gato en los arbustos"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Arbustos/Arbusto1" to="Arbustos/Arbusto1" method="_on_body_entered"]
+[connection signal="body_exited" from="Arbustos/Arbusto1" to="Arbustos/Arbusto1" method="_on_body_exited"]
+[connection signal="body_entered" from="Arbustos/Arbusto2" to="Arbustos/Arbusto2" method="_on_body_entered"]
+[connection signal="body_exited" from="Arbustos/Arbusto2" to="Arbustos/Arbusto2" method="_on_body_exited"]
+[connection signal="body_entered" from="Arbustos/Arbusto3" to="Arbustos/Arbusto3" method="_on_body_entered"]
+[connection signal="body_exited" from="Arbustos/Arbusto3" to="Arbustos/Arbusto3" method="_on_body_exited"]
+[connection signal="body_entered" from="Hojas/Hoja1" to="Hojas/Hoja1" method="_on_body_entered"]
+[connection signal="body_entered" from="Hojas/Hoja2" to="Hojas/Hoja2" method="_on_body_entered"]
+[connection signal="body_entered" from="Hojas/Hoja3" to="Hojas/Hoja3" method="_on_body_entered"]
+[connection signal="body_entered" from="Hojas/Hoja4" to="Hojas/Hoja4" method="_on_body_entered"]
+[connection signal="body_entered" from="Hojas/Hoja5" to="Hojas/Hoja5" method="_on_body_entered"]
+[connection signal="body_entered" from="Meta" to="." method="_on_meta_body_entered"]
