@@ -105,7 +105,7 @@ theme_override_colors/font_color = Color(0.937255, 0.952941, 0.85098, 1)
 theme_override_colors/font_outline_color = Color(0.0784314, 0.180392, 0.0941176, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 28
-text = "Una historia de transformación"
+text = "La belleza del proceso"
 horizontal_alignment = 1
 
 [node name="Sep" type="Control" parent="CentroMenu/Contenido" unique_id=787353492]
