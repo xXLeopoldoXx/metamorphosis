@@ -8,33 +8,37 @@
 [ext_resource type="Texture2D" uid="uid://bt76b734f8jk8" path="res://assets/sprites/props/hoja_1.png" id="6_hoja1"]
 [ext_resource type="Texture2D" uid="uid://c3c16n1esmsr0" path="res://assets/sprites/props/hoja_2.png" id="7_hoja2"]
 [ext_resource type="Texture2D" uid="uid://bn033b0vhgtiv" path="res://assets/sprites/props/hoja_3.png" id="8_hoja3"]
-[ext_resource type="Shader" uid="uid://6asivg8oxi6s" path="res://shaders/viento_bg.gdshader" id="9_viento"]
-[ext_resource type="Texture2D" uid="uid://cxx0v0hhp0sbn" path="res://assets/sprites/background/pradera_capas/cielo.png" id="10_cielo"]
-[ext_resource type="Texture2D" uid="uid://ctuwlikyddxly" path="res://assets/sprites/background/pradera_capas/nubes.png" id="11_nubes"]
-[ext_resource type="Texture2D" uid="uid://dd7vubw44f4o6" path="res://assets/sprites/background/pradera_capas/arbustos_atras.png" id="12_atras"]
-[ext_resource type="Texture2D" uid="uid://e35yo0w212a7" path="res://assets/sprites/background/pradera_capas/tronco.png" id="13_tronco"]
-[ext_resource type="Texture2D" uid="uid://bxc12fyoc5qwb" path="res://assets/sprites/background/pradera_capas/arbustos_medio.png" id="14_medio"]
+[ext_resource type="Texture2D" uid="uid://cxx0v0hhp0sbn" path="res://assets/sprites/background/pradera_capas/cielo.png" id="9_cielo"]
+[ext_resource type="Texture2D" uid="uid://ctuwlikyddxly" path="res://assets/sprites/background/pradera_capas/nubes.png" id="10_nubes"]
+[ext_resource type="Texture2D" uid="uid://dd7vubw44f4o6" path="res://assets/sprites/background/pradera_capas/arbustos_atras.png" id="11_atras"]
+[ext_resource type="Texture2D" uid="uid://e35yo0w212a7" path="res://assets/sprites/background/pradera_capas/tronco.png" id="12_tronco"]
+[ext_resource type="Texture2D" uid="uid://bxc12fyoc5qwb" path="res://assets/sprites/background/pradera_capas/arbustos_medio.png" id="13_medio"]
+[ext_resource type="Shader" uid="uid://bbw4yif3sy58j" path="res://shaders/viento_capa.gdshader" id="14_viento"]
+[ext_resource type="Texture2D" uid="uid://7ykvo6tdk6iu" path="res://assets/sprites/props/mota.png" id="15_mota"]
+[ext_resource type="Shader" uid="uid://cnsakg3bg6vx6" path="res://shaders/hoja_sway.gdshader" id="16_sway"]
+[ext_resource type="Shader" uid="uid://bo2g2mrcqlh03" path="res://shaders/rayos_sol.gdshader" id="17_rayos"]
+[ext_resource type="Shader" uid="uid://4wwxh0fb2r21" path="res://shaders/vinheta.gdshader" id="18_vinheta"]
 
 [sub_resource type="ShaderMaterial" id="Mat_nubes"]
-shader = ExtResource("9_viento")
-shader_parameter/velocidad_viento = 0.4
-shader_parameter/fuerza_viento = 0.006
+shader = ExtResource("14_viento")
+shader_parameter/amplitud = 0.006
+shader_parameter/velocidad = 0.5
 shader_parameter/linea_suelo = 1.0
-shader_parameter/pulso_luz = 0.0
+shader_parameter/fase = 0.0
 
 [sub_resource type="ShaderMaterial" id="Mat_atras"]
-shader = ExtResource("9_viento")
-shader_parameter/velocidad_viento = 0.7
-shader_parameter/fuerza_viento = 0.01
+shader = ExtResource("14_viento")
+shader_parameter/amplitud = 0.005
+shader_parameter/velocidad = 0.8
 shader_parameter/linea_suelo = 0.8
-shader_parameter/pulso_luz = 0.04
+shader_parameter/fase = 1.0
 
 [sub_resource type="ShaderMaterial" id="Mat_medio"]
-shader = ExtResource("9_viento")
-shader_parameter/velocidad_viento = 0.95
-shader_parameter/fuerza_viento = 0.014
+shader = ExtResource("14_viento")
+shader_parameter/amplitud = 0.007
+shader_parameter/velocidad = 1.0
 shader_parameter/linea_suelo = 0.8
-shader_parameter/pulso_luz = 0.05
+shader_parameter/fase = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suelo"]
 size = Vector2(4974, 400)
@@ -48,8 +52,75 @@ size = Vector2(250, 520)
 [sub_resource type="CircleShape2D" id="CircleShape2D_hoja"]
 radius = 110.0
 
+[sub_resource type="ShaderMaterial" id="Mat_sway_A"]
+shader = ExtResource("16_sway")
+shader_parameter/amplitud = 0.02
+shader_parameter/velocidad = 2.4
+
+[sub_resource type="ParticleProcessMaterial" id="PM_hojas_A"]
+emission_shape = 3
+emission_box_extents = Vector3(2500, 10, 1)
+direction = Vector3(0.1, 1, 0)
+spread = 20.0
+initial_velocity_min = 30.0
+initial_velocity_max = 80.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+gravity = Vector3(-15, 85, 0)
+scale_min = 0.08
+scale_max = 0.18
+color = Color(1, 1, 1, 0.9)
+
+[sub_resource type="ShaderMaterial" id="Mat_sway_B"]
+shader = ExtResource("16_sway")
+shader_parameter/amplitud = 0.026
+shader_parameter/velocidad = 3.0
+
+[sub_resource type="ParticleProcessMaterial" id="PM_hojas_B"]
+emission_shape = 3
+emission_box_extents = Vector3(2500, 10, 1)
+direction = Vector3(-0.1, 1, 0)
+spread = 25.0
+initial_velocity_min = 35.0
+initial_velocity_max = 95.0
+angular_velocity_min = -130.0
+angular_velocity_max = 130.0
+gravity = Vector3(12, 100, 0)
+scale_min = 0.06
+scale_max = 0.14
+color = Color(0.95, 1, 0.92, 0.9)
+
+[sub_resource type="ParticleProcessMaterial" id="PM_motas"]
+emission_shape = 3
+emission_box_extents = Vector3(2500, 700, 1)
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 8.0
+initial_velocity_max = 35.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+gravity = Vector3(0, -6, 0)
+scale_min = 0.25
+scale_max = 0.7
+color = Color(1, 1, 0.85, 0.8)
+turbulence_enabled = true
+turbulence_noise_strength = 8.0
+turbulence_noise_scale = 1.5
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_meta"]
 size = Vector2(220, 560)
+
+[sub_resource type="ShaderMaterial" id="Mat_rayos"]
+shader = ExtResource("17_rayos")
+shader_parameter/intensidad = 0.18
+shader_parameter/velocidad = 0.06
+shader_parameter/color_luz = Color(1, 0.96, 0.78, 1)
+
+[sub_resource type="ShaderMaterial" id="Mat_vinheta"]
+shader = ExtResource("18_vinheta")
+shader_parameter/fuerza = 0.38
+shader_parameter/radio = 0.9
+shader_parameter/suavidad = 0.5
 
 [node name="Pradera" type="Node2D" unique_id=1044277420]
 script = ExtResource("2_pradera")
@@ -59,7 +130,7 @@ script = ExtResource("2_pradera")
 [node name="Cielo" type="Sprite2D" parent="Fondo" unique_id=2141210250]
 z_index = -60
 scale = Vector2(7.6296864, 5)
-texture = ExtResource("10_cielo")
+texture = ExtResource("9_cielo")
 centered = false
 
 [node name="Tierra" type="Polygon2D" parent="Fondo" unique_id=798994473]
@@ -71,27 +142,27 @@ polygon = PackedVector2Array(0, 1790, 4884, 1790, 4884, 2400, 0, 2400)
 z_index = -58
 material = SubResource("Mat_nubes")
 scale = Vector2(7.6296864, 5)
-texture = ExtResource("11_nubes")
+texture = ExtResource("10_nubes")
 centered = false
 
 [node name="ArbustosAtras" type="Sprite2D" parent="Fondo" unique_id=395948210]
 z_index = -54
 material = SubResource("Mat_atras")
 scale = Vector2(7.6296864, 5)
-texture = ExtResource("12_atras")
+texture = ExtResource("11_atras")
 centered = false
 
 [node name="Tronco" type="Sprite2D" parent="Fondo" unique_id=2063339691]
 z_index = -52
 scale = Vector2(7.6296864, 5)
-texture = ExtResource("13_tronco")
+texture = ExtResource("12_tronco")
 centered = false
 
 [node name="ArbustosMedio" type="Sprite2D" parent="Fondo" unique_id=1381999236]
 z_index = -48
 material = SubResource("Mat_medio")
 scale = Vector2(7.6296864, 5)
-texture = ExtResource("14_medio")
+texture = ExtResource("13_medio")
 centered = false
 
 [node name="Suelo" type="StaticBody2D" parent="." unique_id=1683716764]
@@ -195,6 +266,41 @@ texture = ExtResource("8_hoja3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hojas/Hoja5" unique_id=1759486050]
 shape = SubResource("CircleShape2D_hoja")
 
+[node name="HojasCayendo" type="Node2D" parent="." unique_id=611002001]
+z_index = 3
+position = Vector2(2440, 400)
+
+[node name="HojasA" type="GPUParticles2D" parent="HojasCayendo" unique_id=611002002]
+material = SubResource("Mat_sway_A")
+amount = 40
+texture = ExtResource("6_hoja1")
+lifetime = 12.0
+preprocess = 6.0
+randomness = 0.4
+visibility_rect = Rect2(-2700, -600, 5400, 3600)
+process_material = SubResource("PM_hojas_A")
+
+[node name="HojasB" type="GPUParticles2D" parent="HojasCayendo" unique_id=611002003]
+material = SubResource("Mat_sway_B")
+amount = 35
+texture = ExtResource("8_hoja3")
+lifetime = 13.0
+preprocess = 7.0
+randomness = 0.5
+visibility_rect = Rect2(-2700, -600, 5400, 3600)
+process_material = SubResource("PM_hojas_B")
+
+[node name="Motas" type="GPUParticles2D" parent="." unique_id=611002010]
+z_index = 6
+position = Vector2(2440, 1300)
+amount = 90
+texture = ExtResource("15_mota")
+lifetime = 8.0
+preprocess = 5.0
+randomness = 0.6
+visibility_rect = Rect2(-2700, -1400, 5400, 3200)
+process_material = SubResource("PM_motas")
+
 [node name="Gato1" parent="." unique_id=574321719 instance=ExtResource("3_gato")]
 position = Vector2(1500, 1550)
 scale = Vector2(3, 3)
@@ -215,7 +321,30 @@ position = Vector2(4400, 1824)
 position = Vector2(0, -200)
 shape = SubResource("RectangleShape2D_meta")
 
+[node name="Rayos" type="CanvasLayer" parent="." unique_id=611002020]
+
+[node name="Luz" type="ColorRect" parent="Rayos" unique_id=611002021]
+material = SubResource("Mat_rayos")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vinheta" type="CanvasLayer" parent="." unique_id=611002022]
+
+[node name="Oscuro" type="ColorRect" parent="Vinheta" unique_id=611002023]
+material = SubResource("Mat_vinheta")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="UI" type="CanvasLayer" parent="." unique_id=469661721]
+layer = 2
 
 [node name="Contador" type="Label" parent="UI" unique_id=1080554983]
 offset_left = 40.0
@@ -232,10 +361,10 @@ text = "Hojas: 0 / 5"
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -460.0
-offset_top = 36.0
-offset_right = 460.0
-offset_bottom = 80.0
+offset_left = -436.0
+offset_top = 88.0
+offset_right = 484.0
+offset_bottom = 132.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.984314, 0.831373, 1)
 theme_override_colors/font_outline_color = Color(0.105882, 0.247059, 0.0941176, 1)

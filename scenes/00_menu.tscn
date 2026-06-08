@@ -1,0 +1,222 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmenu00scene"]
+
+[ext_resource type="Script" uid="uid://cmenu00gd" path="res://scripts/menu.gd" id="1_menu"]
+[ext_resource type="Theme" uid="uid://cmenutheme01" path="res://ui/menu_theme.tres" id="2_theme"]
+[ext_resource type="Texture2D" path="res://assets/sprites/background/pradera_completa_b.png" id="3_bg"]
+[ext_resource type="Shader" path="res://shaders/vinheta.gdshader" id="4_vinheta"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/hoja_1.png" id="5_hoja"]
+[ext_resource type="Shader" path="res://shaders/hoja_sway.gdshader" id="6_sway"]
+
+[sub_resource type="ShaderMaterial" id="Mat_vinheta"]
+shader = ExtResource("4_vinheta")
+shader_parameter/fuerza = 0.5
+shader_parameter/radio = 0.95
+shader_parameter/suavidad = 0.45
+
+[sub_resource type="ShaderMaterial" id="Mat_sway"]
+shader = ExtResource("6_sway")
+shader_parameter/amplitud = 0.02
+shader_parameter/velocidad = 2.2
+
+[sub_resource type="ParticleProcessMaterial" id="PM_hojas"]
+emission_shape = 3
+emission_box_extents = Vector3(640, 10, 1)
+direction = Vector3(0.1, 1, 0)
+spread = 20.0
+gravity = Vector3(0, 55, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 55.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_min = 0.1
+scale_max = 0.22
+color = Color(1, 1, 1, 0.9)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+script = ExtResource("1_menu")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.62, 0.66, 0.6, 1)
+texture = ExtResource("3_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vinheta" type="ColorRect" parent="."]
+material = SubResource("Mat_vinheta")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Hojas" type="GPUParticles2D" parent="."]
+material = SubResource("Mat_sway")
+position = Vector2(576, -30)
+amount = 24
+texture = ExtResource("5_hoja")
+lifetime = 11.0
+preprocess = 7.0
+randomness = 0.5
+visibility_rect = Rect2(-120, -150, 1400, 1000)
+process_material = SubResource("PM_hojas")
+
+[node name="CentroMenu" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Contenido" type="VBoxContainer" parent="CentroMenu"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Titulo" type="Label" parent="CentroMenu/Contenido"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.847059, 0.392157, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.180392, 0.0941176, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 100
+text = "Metamorfosis"
+horizontal_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="CentroMenu/Contenido"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.952941, 0.85098, 1)
+theme_override_colors/font_outline_color = Color(0.0784314, 0.180392, 0.0941176, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "una historia de transformación"
+horizontal_alignment = 1
+
+[node name="Sep" type="Control" parent="CentroMenu/Contenido"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="Jugar" type="Button" parent="CentroMenu/Contenido"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+text = "Jugar"
+
+[node name="Ajustes" type="Button" parent="CentroMenu/Contenido"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+text = "Ajustes"
+
+[node name="Salir" type="Button" parent="CentroMenu/Contenido"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+text = "Salir"
+
+[node name="CentroAjustes" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelAjustes" type="PanelContainer" parent="CentroAjustes"]
+layout_mode = 2
+
+[node name="Margen" type="MarginContainer" parent="CentroAjustes/PanelAjustes"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 32
+
+[node name="Opciones" type="VBoxContainer" parent="CentroAjustes/PanelAjustes/Margen"]
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="TituloAjustes" type="Label" parent="CentroAjustes/PanelAjustes/Margen/Opciones"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.847059, 0.392157, 1)
+theme_override_font_sizes/font_size = 48
+text = "Ajustes"
+horizontal_alignment = 1
+
+[node name="FilaMusica" type="HBoxContainer" parent="CentroAjustes/PanelAjustes/Margen/Opciones"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LabelMusica" type="Label" parent="CentroAjustes/PanelAjustes/Margen/Opciones/FilaMusica"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.980392, 0.862745, 1)
+theme_override_font_sizes/font_size = 30
+text = "Música"
+vertical_alignment = 1
+
+[node name="SliderMusica" type="HSlider" parent="CentroAjustes/PanelAjustes/Margen/Opciones/FilaMusica"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="FilaEfectos" type="HBoxContainer" parent="CentroAjustes/PanelAjustes/Margen/Opciones"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LabelEfectos" type="Label" parent="CentroAjustes/PanelAjustes/Margen/Opciones/FilaEfectos"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.980392, 0.862745, 1)
+theme_override_font_sizes/font_size = 30
+text = "Efectos"
+vertical_alignment = 1
+
+[node name="SliderEfectos" type="HSlider" parent="CentroAjustes/PanelAjustes/Margen/Opciones/FilaEfectos"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.9
+
+[node name="CheckPantalla" type="CheckButton" parent="CentroAjustes/PanelAjustes/Margen/Opciones"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.980392, 0.862745, 1)
+theme_override_font_sizes/font_size = 30
+text = "Pantalla completa"
+
+[node name="Volver" type="Button" parent="CentroAjustes/PanelAjustes/Margen/Opciones"]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+text = "Volver"
+
+[connection signal="pressed" from="CentroMenu/Contenido/Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="pressed" from="CentroMenu/Contenido/Ajustes" to="." method="_on_ajustes_pressed"]
+[connection signal="pressed" from="CentroMenu/Contenido/Salir" to="." method="_on_salir_pressed"]
+[connection signal="value_changed" from="CentroAjustes/PanelAjustes/Margen/Opciones/FilaMusica/SliderMusica" to="." method="_on_slider_musica_value_changed"]
+[connection signal="value_changed" from="CentroAjustes/PanelAjustes/Margen/Opciones/FilaEfectos/SliderEfectos" to="." method="_on_slider_efectos_value_changed"]
+[connection signal="drag_ended" from="CentroAjustes/PanelAjustes/Margen/Opciones/FilaEfectos/SliderEfectos" to="." method="_on_slider_efectos_drag_ended"]
+[connection signal="toggled" from="CentroAjustes/PanelAjustes/Margen/Opciones/CheckPantalla" to="." method="_on_check_pantalla_toggled"]
+[connection signal="pressed" from="CentroAjustes/PanelAjustes/Margen/Opciones/Volver" to="." method="_on_volver_pressed"]
